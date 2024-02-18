@@ -17,3 +17,17 @@ $(document).ready(function(){
         }
     });
 });
+
+//---------------------------------------------------------------------------------------------------------
+$(document).ready(function(){
+    $('#addBtn').click(function(){
+        $.ajax({
+            type: "GET",
+            url: "create.php",
+            success: function(response){
+                $('.data').html(response);
+            }
+        });
+        $('#addBtn').css('display', 'none');
+    });
+});

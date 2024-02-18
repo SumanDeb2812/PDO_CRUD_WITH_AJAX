@@ -9,7 +9,7 @@
     <div class="main">
         <nav>
             <h2>PCA</h2>
-            <a href="http://"><button>Add New</button></a>
+            <button id="addBtn">Add New</button>
         </nav>
         <div class="data"></div>
     </div>
