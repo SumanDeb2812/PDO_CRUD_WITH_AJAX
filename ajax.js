@@ -1,33 +1,34 @@
-// $(document).ready(function(){
-//     $('.data').load('read.php');
-// });
-
-// $(document).ready(function(){
-    // $.get('read.php', function(data){
-    //     $('.data').html(data);
-    // });
-// });
-
-$(document).ready(function(){
-    $.ajax({
-        type: "GET",
-        url: "read.php",
-        success: function(response){
-            $('.data').html(response);
+//--------------------------------------load 1st page------------------------------------
+function showData(){
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            document.getElementById('main').innerHTML = this.response;
         }
-    });
-});
-
-//---------------------------------------------------------------------------------------------------------
-$(document).ready(function(){
-    $('#addBtn').click(function(){
-        $.ajax({
-            type: "GET",
-            url: "create.php",
-            success: function(response){
-                $('.data').html(response);
-            }
-        });
-        $('#addBtn').css('display', 'none');
-    });
-});
+    }
+    xhr.open("GET", "read.php", true);
+    xhr.send();
+}
+window.onload = showData;
+//--------------------------------------ajax pagination------------------------------------
+function paginate(value){
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            document.getElementById('main').innerHTML = this.response;
+        }
+    }
+    xhr.open("GET", "read.php?page=" + value);
+    xhr.send();
+}
+//--------------------------------------ajax search----------------------------------------
+function searchProfile(value){
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            document.getElementById('main').innerHTML = this.response;
+        }
+    }
+    xhr.open("GET", "search.php?name=" + value);
+    xhr.send();
+}

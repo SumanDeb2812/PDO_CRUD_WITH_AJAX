@@ -4,8 +4,14 @@ try {
 } catch (PDOException $e) {
     echo "Error:" . $e->getMessage();
 }
-$query = $conn->prepare("SELECT * FROM test_table_1");
-$query->execute();
+if(!isset($_GET['name'])){
+    $name = "";
+}else{
+    $name = $_GET['name'];
+}
+$pattern = '%' . $name . '%';
+$query = $conn->prepare("SELECT * FROM test_table_1 WHERE name LIKE :pattern");
+$query->execute([':pattern' => $pattern]);
 $number_of_result = $query->rowCount();
 $results_per_page = 8;
 $total_pages = ceil($number_of_result/$results_per_page);
@@ -15,8 +21,8 @@ if (!isset ($_GET['page']) ) {
     $page = $_GET['page'];  
 }
 $page_first_result = ($page-1) * $results_per_page;
-$query1 = $conn->prepare("SELECT * FROM test_table_1 LIMIT " . $page_first_result . "," . $results_per_page);
-$query1->execute();
+$query1 = $conn->prepare("SELECT * FROM test_table_1 WHERE name LIKE :pattern LIMIT " . $page_first_result . "," . $results_per_page);
+$query1->execute([':pattern' => $pattern]);
 $result = $query1->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <div class="p-4 rounded-md shadow-[0_5px_5px_rgba(0,0,0,0.5)] bg-teal-500 mb-10 h-[26rem]">
@@ -46,7 +52,12 @@ $result = $query1->fetchAll(PDO::FETCH_ASSOC);
     </table>
 </div>
 <div class="flex w-full justify-center">
-<?php for($page = 1; $page<= $total_pages; $page++): ?>
+<?php 
+if($number_of_result > 8):
+for($page = 1; $page<= $total_pages; $page++): ?>
     <button class="bg-black text-white px-4 mx-3 rounded hover:shadow-[0_2px_5px_rgba(0,0,0)]" value="<?= $page ?>" onclick="paginate(this.value)"><?= $page ?></a></button>
-<?php endfor ?>
+<?php 
+endfor;
+endif;
+?>
 </div>
