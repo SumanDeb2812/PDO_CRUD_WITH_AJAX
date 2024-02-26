@@ -44,8 +44,8 @@ $result = $query1->fetchAll(PDO::FETCH_ASSOC);
                     <td class="py-2"><?= $row['name'] ?></td>
                     <td class="py-2"><?= $row['email'] ?></td>
                     <td class="py-2"><?= $row['contact'] ?></td>
-                    <td class="py-2"><button class="bg-blue-900 px-2 rounded text-white transition duration-100 hover:shadow-[0_2px_5px_rgba(0,0,0)]">Edit</button></td>
-                    <td class="py-2"><button class="bg-red-900 px-2 rounded text-white transition duration-100 hover:shadow-[0_2px_5px_rgba(0,0,0)]">Delete</button></td>
+                    <td class="py-2"><button class="bg-blue-600 px-2 rounded text-white transition duration-100 hover:shadow-[0_2px_5px_rgba(0,0,0)]">Edit</button></td>
+                    <td class="py-2"><button class="bg-red-600 px-2 rounded text-white transition duration-100 hover:shadow-[0_2px_5px_rgba(0,0,0)]">Delete</button></td>
                 </tr>
             <?php endforeach ?>
         </tbody>

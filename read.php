@@ -38,15 +38,20 @@ $result = $query1->fetchAll(PDO::FETCH_ASSOC);
                     <td class="py-2"><?= $row['name'] ?></td>
                     <td class="py-2"><?= $row['email'] ?></td>
                     <td class="py-2"><?= $row['contact'] ?></td>
-                    <td class="py-2"><button class="bg-blue-900 px-2 rounded text-white transition duration-100 hover:shadow-[0_2px_5px_rgba(0,0,0)]">Edit</button></td>
-                    <td class="py-2"><button class="bg-red-900 px-2 rounded text-white transition duration-100 hover:shadow-[0_2px_5px_rgba(0,0,0)]" value="<?= $row['id'] ?>" onclick="openDeleteProfile(this.value)">Delete</button></td>
+                    <td class="py-2"><button class="bg-blue-600 px-2 rounded text-white transition duration-100 hover:shadow-[0_2px_5px_rgba(0,0,0)]" value="<?= $row['id'] ?>" onclick="openEditProfile(this.value)">Edit</button></td>
+                    <td class="py-2"><button class="bg-red-600 px-2 rounded text-white transition duration-100 hover:shadow-[0_2px_5px_rgba(0,0,0)]" value="<?= $row['id'] ?>" onclick="openDeleteProfile(this.value)">Delete</button></td>
                 </tr>
             <?php endforeach ?>
         </tbody>
     </table>
 </div>
-<div class="flex w-full justify-center">
-    <?php for ($page = 1; $page <= $total_pages; $page++) : ?>
-        <button class="bg-black text-white px-4 mx-3 rounded hover:shadow-[0_2px_5px_rgba(0,0,0)]" value="<?= $page ?>" onclick="paginate(this.value)"><?= $page ?></a></button>
-    <?php endfor ?>
+<div class="flex w-full justify-center items-center">
+    <?php
+    if ($number_of_result > 8) :
+        for ($page = 1; $page <= $total_pages; $page++) : ?>
+            <button class="bg-black text-white px-4 mx-3 rounded hover:shadow-[0_2px_5px_rgba(0,0,0)]" value="<?= $page ?>" onclick="paginate(this.value)"><?= $page ?></a></button>
+    <?php
+        endfor;
+    endif;
+    ?>
 </div>
