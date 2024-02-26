@@ -1,6 +1,6 @@
-# PDO_CRUD_WITH_AJAX
-This is a CRUD operation which is developed on PHP
+# School_Management_System
+This is a school management ERP where school authority can easily manage every students- profile, result, fees etc.
 <br>
-In this app I use PHP PDO and jQuery AJAX.
+And also manage teachers - profile, salary, attendance etc. Also school events, non-teaching stuffs etc.
 <br>
-Here I tried perform every action without load the main index page using AJAX. 
+Tecnology used: HTML, Tailwind CSS, JS, AJAX, PHP PDO, MySQL
