@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./src/output.css">
-    <title>PDO_CRUD_AJAX</title>
+    <title>TODO APP</title>
 </head>
 
 <body class="p-10 h-screen bg-amber-300">
@@ -37,44 +37,38 @@
                 <button id="update-btn" value="" onclick="updateProfile(this.value)">Update</button>
             </form>
         </div>
+        <div class="hidden p-10 bg-yellow-400 rounded-lg text-center animate-[popup_0.3s_linear] relative" id="create-todo">
+            <button id="cancel-create-btn" class="bg-red-600 px-3 py-1 rounded-full text-white shadow-[0_0_5px_rgba(0,0,0)] cursor-pointer absolute -right-1 -top-1">X</button> 
+            <h2>Add New Todo</h2>
+            <form id="create-form" class="w-[500px] mt-6">
+                <div class="flex justify-between items-start mb-4">
+                    <label for="">Title</label>
+                    <input type="text" id="create-title" class="w-[300px] outline-none rounded p-1">
+                </div>
+                <div class="flex justify-between items-start">
+                    <label for="">Description</label>
+                    <textarea id="create-description" rows="5" class="w-[300px] outline-none rounded p-1"></textarea>
+                </div>
+                <div class="flex justify-end items-start mt-4">
+                    <input type="submit" value="Create" id="create-btn" class="bg-blue-600 px-2 rounded text-white transition duration-100 hover:shadow-[0_2px_5px_rgba(0,0,0)] cursor-pointer">
+                </div>
+                <div id="create-error" class="hidden bg-red-500 text-white p-2 mt-4 rounded">Above fields are required</div>
+            </form>
+        </div>
     </div>
     <div class="bg-white rounded-md px-10 py-4 shadow-[0_5px_5px_rgba(0,0,0,0.5)] mb-10">
         <nav class="flex items-center justify-between">
-            <h2>PCA</h2>
+            <h2>My Todo</h2>
             <div class="flex items-center">
                 <label for="" class="mr-4">Search</label>
                 <input type="search" class="shadow-[inset_0_0_3px_rgba(0,0,0,0.5)] w-56 rounded outline-none px-1" onkeyup="searchProfile(this.value)" id="search">
             </div>
-            <button id="addBtn" class="border px-4 py-1 rounded bg-black text-white">Add New</button>
+            <button id="openAdd" class="border px-4 py-1 rounded bg-black text-white">Add New</button>
         </nav>
     </div>
-    <div id="main">
-        <div class="p-4 rounded-md shadow-[0_5px_5px_rgba(0,0,0,0.5)] bg-green-400 mb-8 h-[26rem]">
-        <table class="w-full">
-            <thead class="text-center">
-                <tr class="border-b border-black">
-                    <th class="py-3">Id</th>
-                    <th class="py-3">Name</th>
-                    <th class="py-3">Email</th>
-                    <th class="py-3">Contact</th>
-                    <th class="py-3">Edit</th>
-                    <th class="py-3">Delete</th>
-                </tr>
-            </thead>
-            <tbody class="text-center">
-                <tr id="read-id">
-                    <td class="py-2"></td>
-                    <td class="py-2"></td>
-                    <td class="py-2"></td>
-                    <td class="py-2"></td>
-                    <td class="py-2"><button class="bg-blue-600 px-2 rounded text-white transition duration-100 hover:shadow-[0_2px_5px_rgba(0,0,0)]" value="" onclick="openEditProfile(this.value)">Edit</button></td>
-                    <td class="py-2"><button class="bg-red-600 px-2 rounded text-white transition duration-100 hover:shadow-[0_2px_5px_rgba(0,0,0)]" value="" onclick="openDeleteProfile(this.value)">Delete</button></td>
-                </tr>
-            </tbody>
-        </table>
-        </div>
-    </div>
+    <div id="main"></div>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="ajax.js"></script>
 </body>
 

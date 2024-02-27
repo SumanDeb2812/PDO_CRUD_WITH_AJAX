@@ -1,15 +1,10 @@
 //--------------------------------------load 1st page------------------------------------
-function showData(){
-    let xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-            document.getElementById('main').innerHTML = this.response;
-        }
-    }
-    xhr.open("GET", "read.php", true);
-    xhr.send();
+function loadAlways(){
+    $(window).load('read.php', function(response){
+        $('#main').html(response);
+    });
 }
-window.onload = showData;
+loadAlways();
 //--------------------------------------ajax pagination------------------------------------
 function paginate(value){
     let xhr = new XMLHttpRequest();
@@ -83,3 +78,40 @@ function updateProfile(value){
     xhr.open("GET", "action?id=" + value, true);
     xhr.send();
 }
+
+//-------------------------------------------ajax create----------------------------------------
+$('#openAdd').click(function(){
+    $('#dynamic-box').css('display', 'flex');
+    $('#create-todo').show(); 
+});
+$('#create-btn').click(function(e){
+    e.preventDefault();
+    let create_title = $('#create-title').val();
+    let create_description = $('#create-description').val();
+
+    if(create_title == "" || create_description == ""){
+        $('#create-error').show('slide');
+    }else{
+        $('#create-error').html("");
+        $.ajax({
+            url: 'create.php',
+            type: 'POST',
+            data: {ct:create_title, cd:create_description},
+            success: function(response){
+                if(response == 1){
+                    $('#dynamic-box').hide();
+                    $('#create-todo').hide();
+                    loadAlways();
+                }else{
+                    alert("Failed to save todo");
+                }
+            }
+        });
+    }
+});
+$('#cancel-create-btn').click(function(){
+    $('#dynamic-box').hide();
+    $('#create-todo').hide();
+    $('#create-form').trigger('reset');
+    $('#create-error').hide();
+});

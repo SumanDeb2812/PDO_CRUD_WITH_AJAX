@@ -1,10 +1,6 @@
 <?php
-try {
-    $conn = new PDO("mysql:host=localhost;dbname=test", "root", "");
-} catch (PDOException $e) {
-    echo "Error:" . $e->getMessage();
-}
-$query = $conn->prepare("SELECT * FROM test_table_1");
+include('./db/db_config.php');
+$query = $conn->prepare("SELECT * FROM todos");
 $query->execute();
 $number_of_result = $query->rowCount();
 $results_per_page = 8;
@@ -15,7 +11,7 @@ if (!isset($_GET['page'])) {
     $page = $_GET['page'];
 }
 $page_first_result = ($page - 1) * $results_per_page;
-$query1 = $conn->prepare("SELECT * FROM test_table_1 LIMIT " . $page_first_result . "," . $results_per_page);
+$query1 = $conn->prepare("SELECT * FROM todos LIMIT " . $page_first_result . "," . $results_per_page);
 $query1->execute();
 $result = $query1->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -24,9 +20,10 @@ $result = $query1->fetchAll(PDO::FETCH_ASSOC);
         <thead class="text-center">
             <tr class="border-b border-black">
                 <th class="py-3">Id</th>
-                <th class="py-3">Name</th>
-                <th class="py-3">Email</th>
-                <th class="py-3">Contact</th>
+                <th class="py-3">Title</th>
+                <th class="py-3">Description</th>
+                <th class="py-3">Date and Time</th>
+                <th class="py-3">Status</th>
                 <th class="py-3">Edit</th>
                 <th class="py-3">Delete</th>
             </tr>
@@ -34,12 +31,13 @@ $result = $query1->fetchAll(PDO::FETCH_ASSOC);
         <tbody class="text-center">
             <?php foreach ($result as $row) : ?>
                 <tr>
-                    <td class="py-2"><?= $row['id'] ?></td>
-                    <td class="py-2"><?= $row['name'] ?></td>
-                    <td class="py-2"><?= $row['email'] ?></td>
-                    <td class="py-2"><?= $row['contact'] ?></td>
-                    <td class="py-2"><button class="bg-blue-600 px-2 rounded text-white transition duration-100 hover:shadow-[0_2px_5px_rgba(0,0,0)]" value="<?= $row['id'] ?>" onclick="openEditProfile(this.value)">Edit</button></td>
-                    <td class="py-2"><button class="bg-red-600 px-2 rounded text-white transition duration-100 hover:shadow-[0_2px_5px_rgba(0,0,0)]" value="<?= $row['id'] ?>" onclick="openDeleteProfile(this.value)">Delete</button></td>
+                    <td class="py-2"><?= $row['todo_id'] ?></td>
+                    <td class="py-2"><?= $row['todo_title'] ?></td>
+                    <td class="py-2"><?= $row['todo_description'] ?></td>
+                    <td class="py-2"><?= date('d-M-Y', strtotime($row['todo_date'])) ?></td>
+                    <td class="py-2"><?= $row['todo_status'] ?></td>
+                    <td class="py-2"><button class="bg-blue-600 px-2 rounded text-white transition duration-100 hover:shadow-[0_2px_5px_rgba(0,0,0)]" value="<?= $row['todo_id'] ?>" onclick="openEditProfile(this.value)">Edit</button></td>
+                    <td class="py-2"><button class="bg-red-600 px-2 rounded text-white transition duration-100 hover:shadow-[0_2px_5px_rgba(0,0,0)]" value="<?= $row['todo_id'] ?>" onclick="openDeleteProfile(this.value)">Delete</button></td>
                 </tr>
             <?php endforeach ?>
         </tbody>

@@ -1,18 +1,15 @@
-<form action="action.php" method="post">
-    <div>
-        <label for="">Name</label>
-        <input type="text" name="name" id="">
-        <p id="input-error"></p>
-    </div>
-    <div>
-        <label for="">Email</label>
-        <input type="email" name="email" id="">
-        <p id="input-error"></p>
-    </div>
-    <div>
-        <label for="">Contact</label>
-        <input type="tel" name="contact" id="">
-        <p id="input-error"></p>
-    </div>
-    <input type="submit" value="Add" name="create">
-</form>
+<?php
+include('./db/db_config.php');
+try {
+    $create_title = $_POST['ct'];
+    $create_description = $_POST['cd'];
+    $query = $conn->prepare("INSERT INTO todos (todo_title, todo_description) VALUES (:create_title, :create_description)");
+    $result = $query->execute([':create_title' => $create_title, ':create_description' => $create_description]);
+} catch (PDOException $th) {
+    echo $th->getMessage();
+}
+if($result == true){
+    echo 1;
+}else{
+    echo 0;
+}

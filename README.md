@@ -1,6 +1,6 @@
-# School_Management_System
-This is a school management ERP where school authority can easily manage every students- profile, result, fees etc.
+# Todo_App
+This app is developed using PHP and AJAX.
 <br>
-And also manage teachers - profile, salary, attendance etc. Also school events, non-teaching stuffs etc.
+Here you can make your account and then add any type of todos or reminders.
 <br>
 Tecnology used: HTML, Tailwind CSS, JS, AJAX, PHP PDO, MySQL
