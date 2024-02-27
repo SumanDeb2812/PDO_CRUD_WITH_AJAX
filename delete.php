@@ -1,11 +1,5 @@
 <?php
-$id = $_GET['id'];
-try {
-    $conn = new PDO("mysql:host=localhost;dbname=test", "root", "");
-} catch (PDOException $e) {
-    echo "Error:" . $e->getMessage();
-}
-$query = $conn->prepare("DELETE FROM test_table_1 WHERE id = :id");
+include('./db/db_config.php');
+$id = $_POST['id'];
+$query = $conn->prepare("DELETE FROM todos WHERE todo_id = :id");
 $query->execute([':id' => $id]);
-header('Location: index.php');
-?>

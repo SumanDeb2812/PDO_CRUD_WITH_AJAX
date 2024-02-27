@@ -11,7 +11,7 @@ if (!isset($_GET['page'])) {
     $page = $_GET['page'];
 }
 $page_first_result = ($page - 1) * $results_per_page;
-$query1 = $conn->prepare("SELECT * FROM todos LIMIT " . $page_first_result . "," . $results_per_page);
+$query1 = $conn->prepare("SELECT * FROM todos ORDER BY todo_id DESC LIMIT " . $page_first_result . "," . $results_per_page);
 $query1->execute();
 $result = $query1->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -36,8 +36,8 @@ $result = $query1->fetchAll(PDO::FETCH_ASSOC);
                     <td class="py-2"><?= $row['todo_description'] ?></td>
                     <td class="py-2"><?= date('d-M-Y', strtotime($row['todo_date'])) ?></td>
                     <td class="py-2"><?= $row['todo_status'] ?></td>
-                    <td class="py-2"><button class="bg-blue-600 px-2 rounded text-white transition duration-100 hover:shadow-[0_2px_5px_rgba(0,0,0)]" value="<?= $row['todo_id'] ?>" onclick="openEditProfile(this.value)">Edit</button></td>
-                    <td class="py-2"><button class="bg-red-600 px-2 rounded text-white transition duration-100 hover:shadow-[0_2px_5px_rgba(0,0,0)]" value="<?= $row['todo_id'] ?>" onclick="openDeleteProfile(this.value)">Delete</button></td>
+                    <td class="py-2"><button id="update-todo" class="bg-blue-600 px-2 rounded text-white transition duration-100 hover:shadow-[0_2px_5px_rgba(0,0,0)]" data-todo-id="<?= $row['todo_id'] ?>">Edit</button></td>
+                    <td class="py-2"><button id="delete-todo" class="bg-red-600 px-2 rounded text-white transition duration-100 hover:shadow-[0_2px_5px_rgba(0,0,0)]" data-todo-id="<?= $row['todo_id'] ?>">Delete</button></td>
                 </tr>
             <?php endforeach ?>
         </tbody>
